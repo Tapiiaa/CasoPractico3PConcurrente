@@ -18,14 +18,14 @@ public class HechizoController {
         this.hechizoService = hechizoService;
     }
 
+    @GetMapping
+    public List<Hechizo> obtenerHechizos() {
+        return hechizoService.obtenerTodosHechizos();
+    }
+
     @PostMapping
     public String agregarHechizo(@RequestBody Hechizo hechizo) {
         hechizoService.agregarHechizo(hechizo);
         return "Hechizo agregado exitosamente";
-    }
-
-    @GetMapping
-    public List<Hechizo> obtenerHechizos() {
-        return hechizoService.obtenerTodosHechizos();
     }
 }
