@@ -21,14 +21,8 @@ public class SecurityConfig {
                         .requestMatchers("/hechizos/**").hasRole("USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .loginPage("/login") // Ruta de tu página de inicio de sesión (ajusta si no tienes una página específica)
-                        .permitAll()
-                )
-                .logout((logout) -> logout
-                        .permitAll()
                 );
+
         return http.build();
     }
 
@@ -37,13 +31,13 @@ public class SecurityConfig {
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("usuario")
                 .password("password")
-                .roles("USER")
+                .roles("USER")  // Rol USER
                 .build();
 
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin123")
-                .roles("ADMIN")
+                .roles("ADMIN")  // Rol ADMIN
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
