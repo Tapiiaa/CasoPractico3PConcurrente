@@ -1,53 +1,30 @@
 package com.ministerio.magia.gestorhechizos.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "eventos_magicos")
 public class EventoMagico {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private Date fecha;
-    private List<Hechizo> hechizos; // Los hechizos asociados a este evento
 
-    // Constructor
-    public EventoMagico(Long id, String nombre, Date fecha, List<Hechizo> hechizos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.fecha = fecha;
-        this.hechizos = hechizos;
-    }
+    @Column(nullable = false)
+    private String descripcion;
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public List<Hechizo> getHechizos() {
-        return hechizos;
-    }
-
-    public void setHechizos(List<Hechizo> hechizos) {
-        this.hechizos = hechizos;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

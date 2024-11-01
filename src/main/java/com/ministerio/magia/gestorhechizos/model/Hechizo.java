@@ -1,46 +1,31 @@
 package com.ministerio.magia.gestorhechizos.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "hechizos")
 public class Hechizo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String nombre;
-    private String descripcion;
-    private int nivelMagico;
 
-    public Hechizo(String nombre, String descripcion, int nivelMagico) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.nivelMagico = nivelMagico;
-    }
+    @Column(nullable = false)
+    private String tipo;
 
-    public String getNombre() {
-        return nombre;
-    }
+    @Column(nullable = false)
+    private int nivelPoder;
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getNivelMagico() {
-        return nivelMagico;
-    }
-
-    public void setNivelMagico(int nivelMagico) {
-        this.nivelMagico = nivelMagico;
-    }
-
-    @Override
-    public String toString() {
-        return "Hechizo{" +
-                "nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", nivelMagico=" + nivelMagico +
-                '}';
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }
