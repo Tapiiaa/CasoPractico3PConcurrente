@@ -18,9 +18,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/hechizos/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()  // Permitir acceso a todas las solicitudes sin autenticación
                 );
 
         return http.build();
@@ -43,3 +41,5 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 }
+
+
