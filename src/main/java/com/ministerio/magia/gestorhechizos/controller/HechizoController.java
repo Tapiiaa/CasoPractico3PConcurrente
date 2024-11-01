@@ -28,4 +28,16 @@ public class HechizoController {
         hechizoService.agregarHechizo(hechizo);
         return "Hechizo agregado exitosamente";
     }
+
+    @PutMapping("/{id}")
+    public String actualizarHechizo(@PathVariable Long id, @RequestBody Hechizo hechizo) {
+        hechizoService.actualizarHechizo(id, hechizo);
+        return "Hechizo actualizado exitosamente";
+    }
+
+    @DeleteMapping("/{id}")
+    public String eliminarHechizo(@PathVariable Long id) {
+        hechizoService.eliminarHechizo(id);
+        return "Hechizo eliminado exitosamente";
+    }
 }

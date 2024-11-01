@@ -31,4 +31,17 @@ public class HechizoService {
     public boolean eliminarHechizo(Long id){
         return hechizos.removeIf(hechizo -> hechizo.getId().equals(id));
     }
+
+    public void actualizarHechizo(Long id, Hechizo hechizo) {
+        if(hechizo == null || hechizo.getNombre() == null || hechizo.getTipo() == null) {
+            throw new IllegalArgumentException("El hechizo no puede ser nulo y debe tener nombre y tipo");
+        }
+        hechizos.stream()
+                .filter(hechizo1 -> hechizo1.getId().equals(id))
+                .findFirst()
+                .ifPresent(hechizo1 -> {
+                    hechizo1.setNombre(hechizo.getNombre());
+                    hechizo1.setTipo(hechizo.getTipo());
+                });
+    }
 }
