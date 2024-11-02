@@ -1,8 +1,4 @@
-
-package com.ministerio.magia.gestorhechizos; // Asegúrate de que este paquete coincida con el de MagiaGestorApp
-
-// Importación de MagiaGestorApp
-import com.ministerio.magia.gestorhechizos.MagiaGestorApp;
+package com.ministerio.magia.gestorhechizos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,15 +22,16 @@ public class LoginApp {
 
     private static void displayLoginWindow() {
         JFrame frame = new JFrame("Login - Sistema de Gestión Mágica");
-        frame.setSize(400, 200);
+        frame.setSize(400, 250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(3, 2));
+        frame.setLayout(new GridLayout(4, 2));
 
         JLabel userLabel = new JLabel("Usuario:");
         JTextField userText = new JTextField();
         JLabel passLabel = new JLabel("Contraseña:");
         JPasswordField passText = new JPasswordField();
         JButton loginButton = new JButton("Iniciar sesión");
+        JLabel reminderLabel = new JLabel("Tu usuario es: admin. Tu contraseña es 1**4 (reemplaza * por números).");
 
         frame.add(userLabel);
         frame.add(userText);
@@ -42,6 +39,8 @@ public class LoginApp {
         frame.add(passText);
         frame.add(new JLabel());
         frame.add(loginButton);
+        frame.add(new JLabel());
+        frame.add(reminderLabel);
 
         loginButton.addActionListener(e -> {
             String username = userText.getText().trim();
@@ -51,17 +50,12 @@ public class LoginApp {
                 String role = userRoles.get(username);
                 JOptionPane.showMessageDialog(frame, "Bienvenido, " + username + ". Tu rol es: " + role);
                 frame.dispose(); // Cierra la ventana de login
-                redirectToMainApp(); // Redirige a MagiaGestorApp
+                PantallaElegir.mostrarPantallaElegir(); // Redirige a PantallaElegir
             } else {
                 JOptionPane.showMessageDialog(frame, "Credenciales incorrectas. Inténtalo de nuevo.");
             }
         });
 
         frame.setVisible(true);
-    }
-
-    private static void redirectToMainApp() {
-        // Llama al método principal de MagiaGestorApp para iniciar la aplicación
-        MagiaGestorApp.main(new String[0]); // Redirige a la ejecución de MagiaGestorApp
     }
 }
