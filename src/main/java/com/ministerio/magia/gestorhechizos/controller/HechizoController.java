@@ -4,12 +4,14 @@ import com.ministerio.magia.gestorhechizos.model.Hechizo;
 import com.ministerio.magia.gestorhechizos.service.HechizoService;
 import com.ministerio.magia.gestorhechizos.service.TransaccionesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/hechizos")
+@RequestMapping("/api/hechizos")
 public class HechizoController {
 
     private final HechizoService hechizoService;
@@ -26,10 +28,10 @@ public class HechizoController {
         return hechizoService.obtenerTodosHechizos();
     }
 
-    @PostMapping
-    public String agregarHechizo(@RequestBody Hechizo hechizo) {
+    @PostMapping("/agregar")
+    public ResponseEntity<String> agregarHechizo(@RequestBody Hechizo hechizo) {
         hechizoService.agregarHechizo(hechizo);
-        return "Hechizo agregado exitosamente";
+        return ResponseEntity.status(HttpStatus.CREATED).body("Hechizo agregado exitosamente");
     }
 
     @PostMapping("/lanzar")
