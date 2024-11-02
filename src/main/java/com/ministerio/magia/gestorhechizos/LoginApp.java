@@ -1,5 +1,7 @@
 package com.ministerio.magia.gestorhechizos;
 
+//Para subir commit
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
