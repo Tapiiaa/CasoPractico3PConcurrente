@@ -20,4 +20,14 @@ public class EventoMagicoService {
         eventosMagicos.add(eventoMagico);
         System.out.println("Evento mágico agregado: " + eventoMagico + " en el hilo: " + Thread.currentThread().getName());
     }
+
+    @ConcurrentExecution
+    public List<EventoMagico> obtenerTodosEventos() {
+        System.out.println("Obteniendo todos los eventos mágicos en el hilo: " + Thread.currentThread().getName());
+        return new CopyOnWriteArrayList<>(eventosMagicos);
+    }
+
+    public boolean eliminarEvento(Long id){
+        return eventosMagicos.removeIf(eventoMagico -> eventoMagico.getId().equals(id));
+    }
 }
