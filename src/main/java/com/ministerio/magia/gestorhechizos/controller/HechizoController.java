@@ -2,6 +2,7 @@ package com.ministerio.magia.gestorhechizos.controller;
 
 import com.ministerio.magia.gestorhechizos.model.Hechizo;
 import com.ministerio.magia.gestorhechizos.service.HechizoService;
+import com.ministerio.magia.gestorhechizos.service.TransaccionesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class HechizoController {
 
     private final HechizoService hechizoService;
+    private final TransaccionesService transaccionesService;
 
     @Autowired
-    public HechizoController(HechizoService hechizoService) {
+    public HechizoController(HechizoService hechizoService, TransaccionesService transaccionesService) {
         this.hechizoService = hechizoService;
+        this.transaccionesService = transaccionesService;
     }
 
     @GetMapping
@@ -27,6 +30,11 @@ public class HechizoController {
     public String agregarHechizo(@RequestBody Hechizo hechizo) {
         hechizoService.agregarHechizo(hechizo);
         return "Hechizo agregado exitosamente";
+    }
+
+    @PostMapping("/lanzar")
+    public Hechizo lanzarHechizo(@RequestBody Hechizo hechizo, @RequestParam String descripcionEvento) {
+        return transaccionesService.lanzarHechizoConEvento(hechizo, descripcionEvento);
     }
 
     @PutMapping("/{id}")
